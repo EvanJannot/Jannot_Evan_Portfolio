@@ -15,13 +15,29 @@ const Skills = () => {
     const skillsQuery = '*[_type == "skills"]';
 
     client.fetch(query).then((data) => {
+      sortTableByYear(data);
       setExperiences(data);
     });
 
     client.fetch(skillsQuery).then((data) => {
+      sortTableDataByName(data);
       setSkills(data);
     });
   }, []);
+
+  const sortTableByYear = (tableData) => {
+    tableData.sort((a, b) => {
+      return b.year - a.year;
+    });
+  };
+
+  function sortTableDataByName(tableData) {
+    tableData.sort((a, b) => {
+      return a.name.localeCompare(b.name);
+    });
+
+    return tableData;
+  }
 
   return (
     <>
